@@ -37,4 +37,8 @@
         getMaps();
     </script>
 </body>
+<body>
+    <h1>Le site fonctionne ! 🎉</h1>
+</body>
+
 </html>
