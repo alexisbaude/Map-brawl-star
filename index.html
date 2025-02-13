@@ -74,41 +74,49 @@
 </script>
 <script>
   async function fetchPlayer() {
-    // Récupérer le tag entré par l'utilisateur
     let playerTag = document.getElementById("playerTag").value.trim();
-    
-    // Vérifier si le tag commence par "#", sinon l'ajouter
+
     if (!playerTag.startsWith("#")) {
       playerTag = "#" + playerTag;
     }
 
-    // Remplacer "#" par "%23" pour l'URL
     const encodedTag = encodeURIComponent(playerTag);
+    const url = `https://api.brawlstars.com/v1/players/${encodedTag}`;
     
-    // URL de l'API Brawlify
-    const url = `https://api.brawlapi.com/v1/player/${encodedTag}`;
+    // Ta clé API Supercell ici
+    const API_KEY = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImRhM2IwYTBlLWZlZTgtNGMzYi1iMzk5LWQ2YzZmMWU0YzQyMSIsImlhdCI6MTczOTQzNzM4Niwic3ViIjoiZGV2ZWxvcGVyLzY5MmQ0MDliLTY3ZDEtNWFmYy0xN2IwLWZjZjA0YjYyNTI1ZSIsInNjb3BlcyI6WyJicmF3bHN0YXJzIl0sImxpbWl0cyI6W3sidGllciI6ImRldmVsb3Blci9zaWx2ZXIiLCJ0eXBlIjoidGhyb3R0bGluZyJ9LHsiY2lkcnMiOlsiMC4wLjAuMCJdLCJ0eXBlIjoiY2xpZW50In1dfQ.F4jOLEEiWTjNSpVVM1ohIjz_H5FhWpWH9bppyXAC17fqbX9lLvsGHCNaXUZhEp1tzHPnr3WDVwsY0P9OVMy79Q
+"; // Remplace par ta vraie clé API
 
     try {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error("Joueur introuvable !");
-      
+      const response = await fetch(url, {
+        headers: {
+          "Authorization": `Bearer ${API_KEY}`,
+          "Accept": "application/json"
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error("Joueur introuvable ou problème d'API !");
+      }
+
       const data = await response.json();
-      
-      // Sélectionne l'endroit où afficher les infos du joueur
+      console.log(data); // 🔍 Debugging
+
       const playerInfo = document.getElementById("player-info");
-      
-      // Affiche les stats du joueur
       playerInfo.innerHTML = `
         <h2>${data.name} (${data.tag})</h2>
         <p>🏆 Trophées : ${data.trophies}</p>
         <p>🎖️ Niveau Exp : ${data.expLevel}</p>
         <p>🎮 Club : ${data.club.name || "Aucun"}</p>
       `;
-      
+
     } catch (error) {
-      document.getElementById("player-info").innerHTML = `<p style="color:red;">❌ Erreur : ${error.message}</p>`;
+      console.error("Erreur API :", error);
+      document.getElementById("player-info").innerHTML = `<p style="color:red;">❌ ${error.message}</p>`;
     }
   }
+</script>
+
 </script>
 
 </body>
