@@ -36,6 +36,37 @@
 
         getMaps();
     </script>
+    <script>
+  // Fonction pour récupérer les maps depuis l'API Brawlify
+  async function fetchMaps() {
+    try {
+      const response = await fetch("https://api.brawlapi.com/v1/maps");
+      const data = await response.json();
+
+      // Sélectionne la div où on va afficher les maps
+      const mapsContainer = document.getElementById("maps");
+
+      // Vide le container avant d'ajouter les nouvelles maps
+      mapsContainer.innerHTML = "";
+
+      // Parcours les maps et affiche les 10 premières
+      data.list.slice(0, 10).forEach(map => {
+        const mapElement = document.createElement("div");
+        mapElement.innerHTML = `
+          <h2>${map.name}</h2>
+          <img src="${map.imageUrl}" alt="${map.name}" width="300">
+        `;
+        mapsContainer.appendChild(mapElement);
+      });
+    } catch (error) {
+      console.error("Erreur lors du chargement des maps :", error);
+    }
+  }
+
+  // Charger les maps au démarrage
+  fetchMaps();
+</script>
+
 </body>
 </html>
 
