@@ -28,7 +28,7 @@
             const mapsContainer = document.getElementById('maps');
             mapsContainer.innerHTML = '';
 
-            data.forEach(map => {
+            data.forEach(map => 
                 const mapDiv = document.createElement('div');
                 mapDiv.className = 'map';
                 mapDiv.innerHTML = `
@@ -118,10 +118,11 @@
 </script>
 
 </script>
+<script src="script.js"></script>
 
 </body>
-    <input type="text" id="playerTag" placeholder="Entrez votre tag (#XXXX)">
-<button onclick="fetchPlayer()">Rechercher</button>
+    
+
 
 <div id="result"></div>
 
