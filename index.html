@@ -23,34 +23,27 @@
     </div>
 
     <script>
-        async function fetchMaps() {
-            try {
-                const response = await fetch("https://api.brawlapi.com/v1/maps");
-                const data = await response.json();
-                const mapsContainer = document.getElementById("maps");
+        <script>
+    async function fetchMaps() {
+        try {
+            const response = await fetch("https://api.brawlapi.com/v1/maps");
+            const data = await response.json();
+            const mapsContainer = document.getElementById("maps");
 
-                mapsContainer.innerHTML = ""; // Efface les anciennes maps
+            mapsContainer.innerHTML = ""; // Efface les anciennes maps
 
-                if (!data.list || !Array.isArray(data.list)) {
-                    throw new Error("Les données des maps ne sont pas valides !");
-                }
-
-                data.list.slice(0, 10).forEach(map => {
-                    const mapElement = document.createElement("div");
-                    mapElement.className = "map";
-                    mapElement.innerHTML = `
-                        <h3>${map.name}</h3>
-                        <img src="${map.imageUrl}" alt="${map.name}" width="300">
-                        <p>Mode : ${map.gameMode.name}</p>
-                    `;
-                    mapsContainer.appendChild(mapElement);
-                });
-            } catch (error) {
-                console.error("Erreur lors du chargement des maps :", error);
+            if (!data.list || !Array.isArray(data.list)) {
+                throw new Error("Les données des maps ne sont pas valides !");
             }
-        }
 
-        fetchMaps(); // Charger les maps au démarrage
+            data.list.slice(0, 10).forEach(map => {
+                const mapElement = document.createElement("div");
+                mapElement.className = "map";
+                mapElement.innerHTML = `
+                    <h3>${map.name}</h3>
+                    <img src="${map.imageUrl}" alt="${map.name}" width="300
+
+            
 
         async function fetchPlayer() {
             let playerTag = document.getElementById("playerTag").value.trim();
