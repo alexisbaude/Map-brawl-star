@@ -1,3 +1,5 @@
+console.log("script.js chargé !");
+
 async function fetchPlayer() {
     // Récupérer l'input du joueur
     let playerTag = document.getElementById('playerTag').value.trim();
